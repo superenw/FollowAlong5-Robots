@@ -12,5 +12,15 @@ import mbot.*;
 
 @MBotLab(world = "wall-ahead")
 public class FollowAlong {
-
+    // Starts the program
+    public static void main(String[] args) {
+        // Creates a Rover named Scout, which also creates its chassis and ultrasonic sensor
+        Rover scout = new Rover("Scout");
+        // Prints the rover's name and says it is ready
+        System.out.println(scout + " is ready");
+        // Tells the rover to keep driving until something is closer than 20 centimeters
+        scout.driveUntilBlocked();
+        // Prints a message after the rover stops near the wall
+        System.out.println(scout + " stopped. Something is less than 20 cm ahead.");
+    }
 }
