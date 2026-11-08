@@ -1,18 +1,35 @@
 package part24;
 
 import mbot.*;
-
-// Guide: GUIDE.md in this folder, steps 1–3 and 6
-//
-// Part 24 — overriding: your robot keeps a method's name, but changes what it does.
-//
-// SECTION A — FOLLOW ALONG: type the CarefulBot class from the guide.
-//    Leave the "package part24;" line, the "import mbot.*;" line and the class line alone.
-//    Type everything else yourself.
-//
-// SECTION B — COMMENTS: when you finish, put a // comment ABOVE every line of code,
-//    saying in YOUR OWN WORDS what that line does.
-
+// This robot extends MBot2 and adds safer driving.
 public class CarefulBot extends MBot2 {
-
+    // Creates a new CarefulBot.
+    public CarefulBot() {
+        // Builds the original MBot2 robot.
+        super();
+    }
+    // Replaces the normal straight method.
+    @Override
+    public void straight(double cm) {
+        // Checks if there is enough room to move safely.
+        if (readUltrasonic() > cm + 20) {
+            // Uses the original method to move forward.
+            super.straight(cm);
+            // Runs when the robot is too close to something.
+        } else {
+            // Turns the first light red.
+            turnLedOn(1, 255, 0, 0);
+            // Prints why the robot cannot move.
+            System.out.println("CarefulBot: not driving " + cm + " cm, too close");
+        }
+    }
+    // Replaces the robot's original run method.
+    @Override
+    public void run() {
+        // Tries to move forward five times.
+        for (int i = 0; i < 5; i++) {
+            // Attempts to move forward 40 centimeters.
+            straight(40);
+        }
+    }
 }
